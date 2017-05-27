@@ -41,6 +41,13 @@ INSTALLED_APPS = [
     'api.apps.ApiConfig',
 ]
 
+FILE_UPLOAD_HANDLERS = [
+    'django.core.files.uploadhandler.MemoryFileUploadHandler',
+    'django.core.files.uploadhandler.TemporaryFileUploadHandler',
+    'django_excel.ExcelMemoryFileUploadHandler',
+    'django_excel.TemporaryExcelFileUploadHandler',
+]
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

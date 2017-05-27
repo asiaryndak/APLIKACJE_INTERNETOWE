@@ -5,14 +5,17 @@ from django.views.decorators.http import require_http_methods
 from django.views.decorators.csrf import csrf_exempt
 from .forms import UploadFileForm
 import uuid
+import django_excel as excel
 
-
+@csrf_exempt
 @require_http_methods(["GET"])
-def index(request):
+def index(request, uid):
     data = {
         'success'   :   True,
         'errors'    :   {},
-        'data'      :   {}
+        'data'      :   {
+            'name'      :   uid
+        }
     }
     return JsonResponse(data)
 
@@ -32,10 +35,7 @@ def upload(request):
         'success'   :   success,
         'errors'    :   {},
         'data'      :   {
-            'files' : {
-                'name'      :   uid,
-                'created'   :   '2017-04-27 18:30:34'
-            }
+            'name'      :   uid
         }
     }
     return JsonResponse(data)
