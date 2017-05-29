@@ -27,6 +27,7 @@ $(document).ready(function () {
 
                 $.get( "api/uid/" + fileName, function( response ) {
                       $( "#scheet-name" ).text( response.data.name ).fadeIn(500);
+                      drawChart()
                       console.log( "ok." );
                 });
             }
@@ -38,3 +39,35 @@ $(document).ready(function () {
 
     });
 });
+
+
+
+    function drawChart(){
+
+
+        var ctx = document.getElementById("lineChart").getContext('2d');
+        $.get( "api/chart/cars/uid/" + fileName, function( response ) {
+            var myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: response.data.labels,
+                    datasets: [{
+                        label: 'Ilość osób posiadający dany rodzaj samochodu',
+                        data: response.data.values,
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+            });
+        });
+
+
+     }

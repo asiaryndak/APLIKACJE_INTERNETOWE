@@ -11,10 +11,10 @@ import xlrd
 @csrf_exempt
 @require_http_methods(["GET"])
 def index(request, uid):
-    sheet = xlrd.open_workbook("upload/" + uid)
+    file = xlrd.open_workbook("upload/" + uid)
 
-    arkusz = sheet.sheet_by_index(0);
-    name = arkusz.row_values(0)[0];
+    sheet = file.sheet_by_index(0);
+    name = sheet.row_values(0)[0];
 
     data = {
         'success'   :   True,
@@ -22,6 +22,27 @@ def index(request, uid):
         'data'      :   {
                 'uid'   :   uid,
                 'name'  :   name,
+        }
+    }
+
+    return JsonResponse(data)
+
+@csrf_exempt
+@require_http_methods(["GET"])
+def chartCars(request, uid):
+    file = xlrd.open_workbook("upload/" + uid);
+    sheet = file.sheet_by_index(0);
+
+    labels = ["Kombi", "Sedan", "Van", "Checkback", "Kabriolet", "Sportowy"]
+    values = [27, 38, 16, 41, 6, 19];
+
+    data = {
+        'success': True,
+        'errors': {},
+        'data': {
+            'uid': uid,
+            'labels': labels,
+            'values': values,
         }
     }
 
