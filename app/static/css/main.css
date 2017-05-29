@@ -1,15 +1,24 @@
+body {
+    font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
+}
+span {
+    font-size: 18px;
+}
+#scheet-name {
+    display: none;
+}
 .dropzone {
      color: #000;
      font-size: 20px;
      padding: 50px;
      border: 2px dashed #0087F7;
-      display: inline-block;
-      vertical-align: middle;
-      -webkit-transform: perspective(1px) translateZ(0);
-      transform: perspective(1px) translateZ(0);
-      box-shadow: 0 0 1px transparent;
-      -webkit-transition-duration: 0.5s;
-      transition-duration: 0.5s;
+     display: inline-block;
+     vertical-align: middle;
+     -webkit-transform: perspective(1px) translateZ(0);
+     transform: perspective(1px) translateZ(0);
+     box-shadow: 0 0 1px transparent;
+     -webkit-transition-duration: 0.5s;
+     transition-duration: 0.5s;
 }
 .dropzone:hover, .dropzone:focus, .dropzone:active {
   -webkit-transform: scale(1.2);

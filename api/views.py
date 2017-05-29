@@ -5,19 +5,30 @@ from django.views.decorators.http import require_http_methods
 from django.views.decorators.csrf import csrf_exempt
 from .forms import UploadFileForm
 import uuid
-import django_excel as excel
+import xlrd
+
 
 @csrf_exempt
 @require_http_methods(["GET"])
 def index(request, uid):
+    sheet = xlrd.open_workbook("upload/" + uid)
+
+    arkusz = sheet.sheet_by_index(0);
+    name = arkusz.row_values(0)[0];
+
     data = {
         'success'   :   True,
         'errors'    :   {},
         'data'      :   {
-            'name'      :   uid
+                'uid'   :   uid,
+                'name'  :   name,
         }
     }
+
     return JsonResponse(data)
+
+
+
 
 @csrf_exempt
 @require_http_methods(["POST"])
