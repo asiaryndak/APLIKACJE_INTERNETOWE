@@ -52,7 +52,8 @@ $(document).ready(function () {
                 data: {
                     labels: response.data.labels,
                     datasets: [{
-                        label: 'Ryzyko w zależności od wieku kierowcy. 1 to ryzyko wysokie a 0 to ryzyko niskie',
+                        // label: 'Ryzyko w zależności od wieku kierowcy. 1 to ryzyko wysokie a 0 to ryzyko niskie',
+                        label: 'Wysokość składki w zależności od wieku kierowcy',
                         data: response.data.values,
                         borderWidth: 1
                     }]

@@ -41,12 +41,8 @@ def chartCars(request, uid):
         # print(file.sheet_names())
 
     for i in range(2, arkusz.nrows):
-        if arkusz.row_values(i)[2] == "Wysokie":
-            values.append(1)
-            print(arkusz.row_values(i)[2])
-        elif  arkusz.row_values(i)[2] == "Niskie":
-            values.append(0)
-            print(arkusz.row_values(i)[2])
+        values.append(arkusz.row_values(i)[3])
+        print(arkusz.row_values(i)[3])
 
 
     # labels = ["Kombi", "Sedan", "Van", "Checkback", "Kabriolet", "Sportowy"]
