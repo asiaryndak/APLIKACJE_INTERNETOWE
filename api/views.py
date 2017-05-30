@@ -32,9 +32,25 @@ def index(request, uid):
 def chartCars(request, uid):
     file = xlrd.open_workbook("upload/" + uid);
     sheet = file.sheet_by_index(0);
+    arkusz = file.sheet_by_name("Arkusz1")
+    labels = []
+    values = []
+    for i in range(2,arkusz.nrows):
+        labels.append(arkusz.row_values(i)[0])
+        print(arkusz.row_values(i)[0])
+        # print(file.sheet_names())
 
-    labels = ["Kombi", "Sedan", "Van", "Checkback", "Kabriolet", "Sportowy"]
-    values = [27, 38, 16, 41, 6, 19];
+    for i in range(2, arkusz.nrows):
+        if arkusz.row_values(i)[2] == "Wysokie":
+            values.append(1)
+            print(arkusz.row_values(i)[2])
+        elif  arkusz.row_values(i)[2] == "Niskie":
+            values.append(0)
+            print(arkusz.row_values(i)[2])
+
+
+    # labels = ["Kombi", "Sedan", "Van", "Checkback", "Kabriolet", "Sportowy"]
+    # values = [27, 38, 16, 41, 6, 19];
 
     data = {
         'success': True,
