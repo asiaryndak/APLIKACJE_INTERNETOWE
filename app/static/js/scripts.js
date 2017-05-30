@@ -52,7 +52,7 @@ $(document).ready(function () {
                 data: {
                     labels: response.data.labels,
                     datasets: [{
-                        label: 'Ilość osób posiadający dany rodzaj samochodu',
+                        label: 'Ryzyko w zależności od wieku kierowcy. 1 to ryzyko wysokie a 0 to ryzyko niskie',
                         data: response.data.values,
                         borderWidth: 1
                     }]
