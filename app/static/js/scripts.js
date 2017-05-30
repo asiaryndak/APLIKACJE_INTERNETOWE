@@ -26,9 +26,12 @@ $(document).ready(function () {
                 }, 1250, 'easeInOutExpo');
 
                 $.get( "api/uid/" + fileName, function( response ) {
+                      $( "#step-3" ).removeClass('hidden');
                       $( "#scheet-name" ).text( response.data.name ).fadeIn(500);
-                      drawChart()
-                      console.log( "ok." );
+                      drawChart();
+                      getPrecision();
+                      getDownloadUrl();
+                      $( "#step-4" ).removeClass('hidden');
                 });
             }
         },
@@ -41,6 +44,17 @@ $(document).ready(function () {
 });
 
 
+    function getPrecision(){
+        $.get( "api/precision/uid/" + fileName, function( response ) {
+            $( "#precision" ).text( response.data.precision ).fadeIn(500);
+        });
+    }
+
+    function getDownloadUrl(){
+        $.get( "api/download/uid/" + fileName, function( response ) {
+            $( "#downloadButton" ).attr("href", "/static/files/"+ response.data.name);
+        });
+    }
 
     function drawChart(){
 
