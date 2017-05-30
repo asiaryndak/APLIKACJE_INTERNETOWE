@@ -71,4 +71,30 @@ $(document).ready(function () {
         });
 
 
+         var ctx2 = document.getElementById("lineChart-2").getContext('2d');
+        $.get( "api/chart/cars/uid/" + fileName, function( response ) {
+            var myChart2 = new Chart(ctx2, {
+                type: 'line',
+                data: {
+                    labels: response.data.labels,
+                    datasets: [{
+                        // label: 'Ryzyko w zależności od wieku kierowcy. 1 to ryzyko wysokie a 0 to ryzyko niskie',
+                        label: 'Wysokość składki w zależności od wieku kierowcy',
+                        data: response.data.values,
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+            });
+        });
+
+
      }
