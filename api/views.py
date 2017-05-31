@@ -64,6 +64,72 @@ def chartCars(request, uid):
 
     return JsonResponse(data)
 
+@csrf_exempt
+@require_http_methods(["GET"])
+def precision(request, uid):
+    file = xlrd.open_workbook("upload/" + uid);
+    sheet = file.sheet_by_index(0);
+    arkusz = file.sheet_by_name("Arkusz1")
+
+
+    rows = arkusz.nrows;
+    badRows = 0;
+    for i in range(2,arkusz.nrows):
+        if ((arkusz.row_values(i)[0] < 31) or (arkusz.row_values(i)[1] == "Sportowe")) and (arkusz.row_values(i)[2] == "Wysokie"):
+            badRows+=1;
+
+    precision = round(((rows-badRows)/rows) * 100, 2);
+    data = {
+        'success': True,
+        'errors': {},
+        'data': {
+            'uid': uid,
+            'precision': precision,
+        }
+    }
+
+    return JsonResponse(data)
+
+csrf_exempt
+@require_http_methods(["GET"])
+def download(request, uid):
+    file = xlrd.open_workbook("upload/" + uid);
+    arkusz = file.sheet_by_index(1);
+
+    book = xlwt.Workbook(encoding="utf-8")
+
+    sheet1 = book.add_sheet("Raport");
+
+    sheet1.write(0, 0, "Wynik działania algorytmu");
+
+    sheet1.write(1, 0, "Wiek kierowcy");
+    sheet1.write(1, 1, "Typ samochodu");
+    sheet1.write(1, 2, "Ryzyko");
+
+    for i in range(2,arkusz.nrows):
+        sheet1.write(i, 0, arkusz.row_values(i)[0]);
+        sheet1.write(i, 1, arkusz.row_values(i)[1]);
+
+        if ((arkusz.row_values(i)[0] < 31) or (arkusz.row_values(i)[1] == "Sportowe")):
+            sheet1.write(i, 2, "Wysokie");
+        else:
+            sheet1.write(i, 2, "Niskie");
+
+
+    name = uuid.uuid4().hex + ".xls";
+    book.save("app/static/files/" + name);
+
+    data = {
+        'success': True,
+        'errors': {},
+        'data': {
+            'uid': uid,
+            'name': name,
+            'test': arkusz.nrows
+        }
+    }
+
+    return JsonResponse(data)
 
 @csrf_exempt
 @require_http_methods(["GET"])
