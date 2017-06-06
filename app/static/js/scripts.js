@@ -90,12 +90,8 @@ function drawChart() {
         var myChart2 = new Chart(ctx2, {
             type: 'pie',
             data: {
-                // labels: response.data.labels,
-                labels: ["Sedan", "Kombi", "Hatchback", "Van", "Kabriolet", "Sportowe"],
+                labels: response.data.labels,
                 datasets: [{
-                    // label: 'Ryzyko w zależności od wieku kierowcy. 1 to ryzyko wysokie a 0 to ryzyko niskie',
-                    // label: 'Ilość samochodów każdego typu',
-                    // data: [10, 15, 30, 32, 21, 9],
                     data: response.data.values,
                     /*backgroundColor: [
                      'rgba(220,220,220,0.2)',
@@ -111,7 +107,10 @@ function drawChart() {
                         "#95a5a6",
                         "#9b59b6",
                         "#f1c40f",
-                        "#e74c3c"
+                        "#e74c3c",
+                        "#3498db",
+                        "#95a5a6",
+                        "#9b59b6"
                     ],
                     // borderWidth: 1
                 }]

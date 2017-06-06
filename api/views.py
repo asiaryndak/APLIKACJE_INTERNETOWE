@@ -137,42 +137,27 @@ def chartCars2(request, uid):
     file = xlrd.open_workbook("upload/" + uid);
     sheet = file.sheet_by_index(0);
     arkusz = file.sheet_by_name("Arkusz1")
-    values = []
-    sedan = 0
-    kombi = 0
-    hatchback = 0
-    van = 0
-    kabriolet = 0
-    sportowe = 0
-    # for i in range(2,arkusz.nrows):
-    #     labels.append(arkusz.row_values(i)[0])
-    #     print(arkusz.row_values(i)[0])
-    #     print(file.sheet_names())
 
-
+    labels = []
     for i in range(2, arkusz.nrows):
-        print(arkusz.row_values(i)[1])
-        if arkusz.row_values(i)[1] == "Sedan":
-            sedan += 1
-        elif arkusz.row_values(i)[1] == "Kombi":
-            kombi += 1
-        elif arkusz.row_values(i)[1] == "Hatchback":
-            hatchback += 1
-        elif arkusz.row_values(i)[1] == "Van":
-            van += 1
-        elif arkusz.row_values(i)[1] == "Kabriolet":
-            kabriolet += 1
-        elif arkusz.row_values(i)[1] == "Sportowe":
-            sportowe += 1
+        if not arkusz.row_values(i)[1] in labels:
+            labels.append(arkusz.row_values(i)[1])
 
-    values.extend((sedan, kombi, hatchback, van, kabriolet, sportowe))
+    values = []
+    for car in labels:
+        counter = 0;
+        for i in range(2, arkusz.nrows):
+            if arkusz.row_values(i)[1] == car:
+                counter += 1;
+        values.append(counter);
 
     data = {
         'success': True,
         'errors': {},
         'data': {
             'uid': uid,
-            'values': values,
+            'labels': labels,
+            'values': values
         }
     }
 
